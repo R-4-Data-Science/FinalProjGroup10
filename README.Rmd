@@ -3,6 +3,7 @@ title: "Final_Project_Group_10"
 author: "Emily Hollingshead,Asfiha Tarannum,Kaosar Uddin"
 output: html_document
 ---
+
 ---
 output: github_document
 ---
@@ -182,30 +183,6 @@ A matrix of prevalence values for each cutoff.
 **Check the Packages**
 
 Now, we are going to apply the packages and justify whether we get the result if we apply with an example. 
-```{r}
-library(p1)
-set.seed(123)  # Setting seed for reproducibility
-n =200
-p = 2
-
-X = matrix(rnorm(n * p), ncol = p)
-
-true_beta = c(1, -0.5)
-pi = 1 / (1 + exp(-X %*% true_beta))
-y = rbinom(n, 1, pi)
-
-beta_hat = logistic_regression(X, y)
-bootstrap_conf_intervals(X, y)
-plot_logistic_curve(X, beta_hat, y)
-confusion_matrix(X, y, beta_hat)
-Prevalence(X, y, beta_hat)
-Accuracy(X, y, beta_hat)
-Sensitivity(X, y, beta_hat)
-Specificity(X, y, beta_hat)
-False_Discovery_Rate(X, y, beta_hat)
-Diagnostic_Odds_ratio(X, y, beta_hat)
- prevalencegrid(X, y, beta_hat)
-```
 
 
 **Application of the p1 Package to Health Insurance Data**
@@ -221,9 +198,10 @@ The dataset was loaded and pre-processed as follows:
     Predictor Variable (BMI): The BMI values were extracted as the predictor matrix X, with standardization applied for numerical stability.
     Response Variable (Insurance Charges): Insurance charges (data$charges) were transformed into a binary variable y, categorizing charges above the median as 1 (high) and below as 0 (low).
 ```{r}
-data = read.csv("F:/Fall 2023 AU/R Programming for Data Science/Practise/p1/expenses.csv")
+library(p1)
+#data = read.csv("F:/Fall 2023 AU/R Programming for Data Science/Practise/p1/expenses.csv")
 
-#data = expenses
+data = read.csv("expenses.csv")
 
 # Prepare the predictor matrix X (using 'bmi' as the predictor)
 X = matrix(data$bmi, ncol = 1)
