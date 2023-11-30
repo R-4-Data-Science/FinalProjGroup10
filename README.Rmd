@@ -10,7 +10,7 @@ output: github_document
 
 # Packages for Logistics regression
 
-The package must contain the basic functions to perform logistic regression (e.g. estimate the coefficient vector β
+The package "flp1" must contain the basic functions to perform logistic regression (e.g. estimate the coefficient vector β
 
 which includes the independent variables/predictors plus the intercept) and obtain different outputs from the procedure. The estimator to be computed using numerical optimization is the following:
 
@@ -185,11 +185,11 @@ A matrix of prevalence values for each cutoff.
 Now, we are going to apply the packages and justify whether we get the result if we apply with an example. 
 
 
-**Application of the p1 Package to Health Insurance Data**
+**Application of the "flp1" Package to Health Insurance Data**
 
 Overview:
 
-The p1 package, designed for advanced logistic regression analysis, was applied to a dataset obtained from the "R Programming for Data Science" course on Canvas. This dataset, named expenses.csv, contains health insurance cost information, including individual BMI (Body Mass Index) and charges. Our goal was to analyze the relationship between BMI and high insurance charges using logistic regression.
+The "fip1" package, designed for advanced logistic regression analysis, was applied to a dataset obtained from the "R Programming for Data Science" course on Canvas. This dataset, named expenses.csv, contains health insurance cost information, including individual BMI (Body Mass Index) and charges. Our goal was to analyze the relationship between BMI and high insurance charges using logistic regression.
 Data Preparation
 
 The dataset was loaded and pre-processed as follows:
@@ -198,7 +198,7 @@ The dataset was loaded and pre-processed as follows:
     Predictor Variable (BMI): The BMI values were extracted as the predictor matrix X, with standardization applied for numerical stability.
     Response Variable (Insurance Charges): Insurance charges (data$charges) were transformed into a binary variable y, categorizing charges above the median as 1 (high) and below as 0 (low).
 ```{r}
-library(p1)
+library(flp1)
 #data = read.csv("F:/Fall 2023 AU/R Programming for Data Science/Practise/p1/expenses.csv")
 
 data = read.csv("expenses.csv")
@@ -231,7 +231,7 @@ prevalencegrid(X, y, beta_hat)
 ```
 Logistic Regression Analysis:
 
-Using the p1 package, logistic regression was performed, and various metrics were computed:
+Using the "flp1" package, logistic regression was performed, and various metrics were computed:
 
     Model Fitting: Logistic regression was applied to estimate the relationship between BMI and high insurance charges.
     Plotting the Logistic Curve: A visual representation of the model was generated.
@@ -248,7 +248,7 @@ The analysis provided insights into the likelihood of incurring high insurance c
 
 Conclusion:
 
-The application of the p1 package to the health insurance data demonstrated its efficacy in logistic regression analysis. The metrics obtained underscored the role of BMI in predicting insurance charges, thereby validating the package's practical utility in real-world data scenarios.
+The application of the "flp1" package to the health insurance data demonstrated its efficacy in logistic regression analysis. The metrics obtained underscored the role of BMI in predicting insurance charges, thereby validating the package's practical utility in real-world data scenarios.
 
 [Referrence Title](https://smac-group.github.io/ds/section-r-packages.html)
 [Referrence Title]( https://chat.openai.com/share/1a2da067-b3e9-4d8c-932c-c751821bdebb)

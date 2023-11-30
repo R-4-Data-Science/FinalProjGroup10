@@ -2,7 +2,7 @@
 #data = read.csv("F:/Fall 2023 AU/R Programming for Data Science/Practise/p1/expenses.csv")
 
 data = read.csv("expenses.csv")
-library("p1")
+
 # Prepare the predictor matrix X (using 'bmi' as the predictor)
 X = matrix(data$bmi, ncol = 1)
 X = scale(X)  # Standardizing X
