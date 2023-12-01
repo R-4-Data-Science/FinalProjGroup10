@@ -18,7 +18,14 @@ knitr::opts_chunk$set(
 #installation of the package: 
 # To use the package, 'flp1', install it directly from GitHub:
 library(devtools)
-install_github("R-4-Data-Science/FinalProjGroup10")
+#install_github("R-4-Data-Science/FinalProjGroup10")
+# Load the 'remotes' package
+library(remotes)
+
+# Install the package from GitHub
+remotes::install_github("R-4-Data-Science/FinalProjGroup10")
+
+
 library(flp1)
 devtools::build_vignettes("flp1")
 devtools::check("flp1")
