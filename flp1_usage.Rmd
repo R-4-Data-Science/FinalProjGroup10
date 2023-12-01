@@ -1,10 +1,7 @@
 ---
 title: "flp1_usage"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{flp1_usage}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+author: "Emily Hollingshead, Asfiha Tarannum, Kaosar Uddin"
+output: html_document
 ---
 
 ```{r, include = FALSE}
@@ -14,98 +11,239 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+# Packages for Logistics regression
+
+The package "flp1" must contain the basic functions to perform logistic regression (e.g. estimate the coefficient vector β
+
+which includes the independent variables/predictors plus the intercept) and obtain different outputs from the procedure. The estimator to be computed using numerical optimization is the following:
+
+$$
+\hat{\beta} := \arg\min_\beta \sum_{i=1}^n \left( -y_i \cdot \ln(p_i) - (1 - y_i) \cdot \ln(1 - p_i) \right),
+$$
+where
+$$
+p_i := \frac{1}{1 + \exp(-x_i^T \beta)},
+$$
+and $y_i$ and $x_i$ represent the \( i \)-th observation and row of the response and the predictors respectively.
+
+The package is specifically designed to perform logistic regression using numerical optimization techniques. This package offers a suite of essential functions that enable users to execute logistic regression analysis and extract various key outputs from the process. The core functionalities include:
+
+    Calculation of Initial Values for Optimization: Leveraging the least-squares method to provide starting points for the logistic regression optimization process.
+    Bootstrap Confidence Intervals: Functionality to generate bootstrap samples and calculate confidence intervals, enhancing the robustness of the regression analysis.
+    Logistic Curve Plotting: Tools to visualize the logistic regression curve, offering intuitive insights into the relationship between variables.
+    Confusion Matrix Generation: Enables the construction of a confusion matrix, which is pivotal in evaluating the performance of the logistic regression model.
+    Performance Metrics Computation: The package computes a range of performance metrics critical for assessing the efficacy of the logistic model. These include:
+        Prevalence: Measures the proportion of the response variable in the dataset.
+        Accuracy: Quantifies the overall correctness of the model.
+        Sensitivity: Assesses the model's ability to correctly identify true positives.
+        Specificity: Evaluates the model's accuracy in identifying true negatives.
+        False Discovery Rate: Determines the proportion of false positives in the predicted positives.
+        Diagnostic Odds Ratio: Offers a measure of the effectiveness of the logistic regression model.
+        
+Below are descriptions for each of the functions in  package. These descriptions provide an overview of what each function does, its parameters, and its return value.
+
+**bootstrap_conf_intervals(X, y)**
+
+Description:
+Calculates bootstrap confidence intervals for logistic regression coefficients. This function employs bootstrap sampling to estimate the variability of the coefficient estimates, providing a range of plausible values for each coefficient.
+
+Parameters:
+
+    X: Matrix of predictors.
+    Y: Binary response variable (0 or 1).
+
+Returns:
+Matrix of bootstrap confidence intervals for each coefficient.
+
+**plot_logistic_curve(X, beta_hat, y)**
+
+Description:
+Plots the logistic regression curve. This visualization helps in assessing the fit of the logistic regression model to the observed data.
+
+Parameters:
+
+    X: Matrix of predictors.
+    beta_hat: Estimated coefficients from the logistic regression.
+    y: Binary response variable (0 or 1).
+
+Returns:
+A plot of the logistic curve against the data.
+
+**confusion_matrix(X, y, beta_hat)**
+
+Description:
+Generates a confusion matrix for the logistic regression model. This matrix is a useful tool for summarizing the performance of a classification model.
+
+Parameters:
+
+    X: Matrix of predictors.
+    beta_hat: Estimated coefficients from the logistic regression.
+    y: Binary response variable (0 or 1).
+
+Returns:
+A confusion matrix detailing true positives, false positives, true negatives, and false negatives.
+
+**Prevalence(X, y, beta_hat)**
+
+Description:
+Calculates the prevalence, the proportion of positive cases in the dataset, based on the logistic regression model predictions.
+
+Parameters:
+
+    X: Matrix of predictors.
+    beta_hat: Estimated coefficients from the logistic regression.
+    y: Binary response variable (0 or 1).
+
+Returns:
+The prevalence value.
+
+**Accuracy(X, y, beta_hat)**
+
+Description:
+Computes the accuracy of the logistic regression model, reflecting the proportion of correct predictions.
+
+Parameters:
+
+    X: Matrix of predictors.
+    beta_hat: Estimated coefficients from the logistic regression.
+    y: Binary response variable (0 or 1).
+
+Returns:
+The accuracy value.
+
+
+**Sensitivity(X, y, beta_hat)**
+
+Description:
+Calculates the sensitivity (true positive rate) of the logistic regression model, indicating how well the model identifies positive cases.
+
+Parameters:
+
+    X: Matrix of predictors.
+    beta_hat: Estimated coefficients from the logistic regression.
+    y: Binary response variable (0 or 1).
+
+Returns:
+The sensitivity value.
+
+**Specificity(X, y, beta_hat)**
+
+Description:
+Measures the specificity (true negative rate) of the logistic regression model, showing the model's ability to identify negative cases.
+
+Parameters:
+
+    X: Matrix of predictors.
+    beta_hat: Estimated coefficients from the logistic regression.
+    y: Binary response variable (0 or 1).
+
+Returns:
+The specificity value.
+
+**False_Discovery_Rate(X, y, beta_hat)**
+
+Description:
+Computes the false discovery rate, indicating the proportion of false positives in the positive predictions.
+
+Parameters:
+
+    X: Matrix of predictors.
+    beta_hat: Estimated coefficients from the logistic regression.
+    y: Binary response variable (0 or 1).
+
+Returns:
+The false discovery rate.
+
+**Diagnostic_Odds_ratio(X, y, beta_hat)**
+
+Description:
+Calculates the diagnostic odds ratio, a measure of the effectiveness of the logistic regression model.
+
+Parameters:
+
+    X: Matrix of predictors.
+    beta_hat: Estimated coefficients from the logistic regression.
+    y: Binary response variable (0 or 1).
+
+Returns:
+The diagnostic odds ratio value.
+
+**prevalencegrid(X, y, beta_hat)**
+
+Description:
+Generates a grid of prevalence values over a range of cutoffs, useful for understanding how the prevalence metric varies with different classification thresholds.
+
+Parameters:
+
+    X: Matrix of predictors.
+    beta_hat: Estimated coefficients from the logistic regression.
+    y: Binary response variable (0 or 1).
+
+Returns:
+A matrix of prevalence values for each cutoff.
+
+**Check the Packages**
+
+Now, we are going to apply the packages and justify whether we get the result if we apply with an example. 
+
+**Application of the "flp1" Package to Health Insurance Data**
+
+Overview:
+
+The "fip1" package, designed for advanced logistic regression analysis, was applied to a dataset obtained from the "R Programming for Data Science" course on Canvas. This dataset, named expenses.csv, contains health insurance cost information, including individual BMI (Body Mass Index) and charges. Our goal was to analyze the relationship between BMI and high insurance charges using logistic regression.
+Data Preparation
+
+The dataset was loaded and pre-processed as follows:
+
+    Loading Data: expenses.csv was read into R, creating the data dataframe.
+    Predictor Variable (BMI): The BMI values were extracted as the predictor matrix X, with standardization applied for numerical stability.
+    Response Variable (Insurance Charges): Insurance charges (data$charges) were transformed into a binary variable y, categorizing charges above the median as 1 (high) and below as 0 (low).
+
+```{r}
 #installation of the package: 
 # To use the package, 'flp1', install it directly from GitHub:
 library(devtools)
-#install_github("R-4-Data-Science/FinalProjGroup10")
-# Load the 'remotes' package
-library(remotes)
-
-# Install the package from GitHub
-remotes::install_github("R-4-Data-Science/FinalProjGroup10")
-
-
+install_github("R-4-Data-Science/FinalProjGroup10")
 library(flp1)
-devtools::build_vignettes("flp1")
-devtools::check("flp1")
 
+data = read.csv("expenses.csv")
 
-## Overview of Package Capabilities:
-# The Package "flp1" is designed for executing logistic regression through numerical optimization techniques. Its functionalities include: 1. Initial Estimates for Optimization: Uses the least-squares method to provide starting points for logistic regression; 2. Bootstrap Confidence Intervals: Offers robust confidence intervals for logistic regression coefficients; 3. Logistic Curve Plotting: Visualizes the relationship between variables and the logistic curve; 4. Confusion Matrix Generation: Creates a matrix to evaluate logistic regression performance, 5. Performance Metrics Computation: Includes prevalence, accuracy, sensitivity, specificity, false discovery rate, and diagnostic odds ratio.
+# Prepare the predictor matrix X (using 'bmi' as the predictor)
+X = matrix(data$bmi, ncol = 1)
+X = scale(X)  # Standardizing X
 
-# Data Preprocessing:
+y = ifelse(data$charges > median(data$charges), 1, 0)
 
-data <- expenses
-head(data)
-data <- as.matrix(data)
-data <- as.numeric(data)
-data <- matrix(data, ncol=9)
-X <- data[, c(1:4,6:9)]  # Predictors
-Y <- data[, 5]           # Response
-head(X)
-head(Y)
-
-#Applying logistic regression using the package "flp1": 
-
-logistic_loss <- function(beta, X, y) {
-    predictions <- 1 / (1 + exp(-X %*% beta))
-    loss <- -sum(y * log(predictions) + (1 - y) * log(1 - predictions))
-    return(loss)
+if (any(is.na(X), is.infinite(X), is.na(y), is.infinite(y))) {
+  stop("Data contains NA or Inf.")
 }
 
-logistic_regression <- function(X, y) {
-    # Adding an intercept column to X
-    X_intercept <- cbind(1, X)
-    
-    # Initial coefficients (betas), starting with zeros
-    initial_betas <- rep(0, ncol(X_intercept))
-    
-    # Optimizing the logistic loss
-    optimization_result <- optim(par = initial_betas, fn = logistic_loss, X = X_intercept, y = y, method = "BFGS")
-    
-    # Returning the optimized coefficients
-    return(optimization_result$par)
-}
+# Logistic Regression and subsequent analyses
+initial_beta = rep(0, ncol(X))
+beta_hat = logistic_regression(X, y)
 
-predict_logistic <- function(X, betas) {
-    X_intercept <- cbind(1, X)
-    probabilities <- 1 / (1 + exp(-X_intercept %*% betas))
-    return(probabilities)
-}
-
-
-#example_usage:
-# Example data
-set.seed(123)  # For reproducible results
-X <- matrix(rnorm(100 * 2), ncol = 2)
-y <- ifelse(X[, 1] + X[, 2] + rnorm(100) > 0, 1, 0)
-
-# Logistic regression
-beta_hat <- logistic_regression(X, y)
-
-# Prediction
-predictions <- predict_logistic(X, beta_hat)
-predicted_classes <- ifelse(predictions > 0.5, 1, 0)
-
-# Print results
-print(beta_hat)
-print(head(predicted_classes))
-
-
-plot_logistic_curve(X,beta_hat,y)
-
-# The p1 package, designed for performing logistic regression using numerical optimization, demonstrates robustness and versatility in handling logistic regression tasks. This package encapsulates a range of functionalities essential for logistic regression analysis, making it a valuable tool for data scientists and statisticians.
-
-# The core strength of the package lies in its ability to execute logistic regression from the ground up, offering users complete control over the modeling process. Its capability to calculate initial values using the least-squares method provides a solid starting point for the optimization process. The numerical optimization approach employed in the logistic regression function ensures that the package is not dependent on pre-existing logistic regression functions in R, offering a more flexible and customizable analysis experience.
-
-# The bootstrap confidence intervals function is particularly noteworthy, as it enhances the robustness of the regression analysis. By generating bootstrap samples, this function provides a range of plausible values for each coefficient, giving users a more comprehensive understanding of the variability and reliability of their model estimates.
-
-# The package's visualization capabilities, especially the logistic curve plotting function, offer intuitive insights into the relationship between variables. This not only aids in model interpretation but also helps in presenting the results in a more accessible format.
-
-# The inclusion of a function to generate a confusion matrix, along with the computation of various performance metrics such as prevalence, accuracy, sensitivity, specificity, false discovery rate, and diagnostic odds ratio, makes the package a comprehensive tool for model evaluation. These metrics are crucial for assessing the efficacy of the logistic model, especially in classification tasks.
-
-# The application of the p1 package to real-world data, as demonstrated with the expenses dataset, underscores its practical utility. The analysis provided clear insights into the relationship between predictors (like BMI) and the response variable, demonstrating the package's capability in handling real-world data scenarios. The ability to visualize the performance metrics over various cutoff values further adds to the analytical power of the package.
-
+#bootstrap_conf_intervals(X, y)
+plot_logistic_curve(X, beta_hat, y)
+confusion_matrix(X, y, beta_hat)
+Prevalence(X, y, beta_hat)
+Accuracy(X, y, beta_hat)
+Sensitivity(X, y, beta_hat)
+Specificity(X, y, beta_hat)
+False_Discovery_Rate(X, y, beta_hat)
+Diagnostic_Odds_ratio(X, y, beta_hat)
+prevalencegrid(X, y, beta_hat)
 
 ```
+The p1 package, designed for performing logistic regression using numerical optimization, demonstrates robustness and versatility in handling logistic regression tasks. This package encapsulates a range of functionalities essential for logistic regression analysis, making it a valuable tool for data scientists and statisticians.
+
+The core strength of the package lies in its ability to execute logistic regression from the ground up, offering users complete control over the modeling process. Its capability to calculate initial values using the least-squares method provides a solid starting point for the optimization process. The numerical optimization approach employed in the logistic regression function ensures that the package is not dependent on pre-existing logistic regression functions in R, offering a more flexible and customizable analysis experience.
+
+The bootstrap confidence intervals function is particularly noteworthy, as it enhances the robustness of the regression analysis. By generating bootstrap samples, this function provides a range of plausible values for each coefficient, giving users a more comprehensive understanding of the variability and reliability of their model estimates.
+
+The package's visualization capabilities, especially the logistic curve plotting function, offer intuitive insights into the relationship between variables. This not only aids in model interpretation but also helps in presenting the results in a more accessible format.
+
+The inclusion of a function to generate a confusion matrix, along with the computation of various performance metrics such as prevalence, accuracy, sensitivity, specificity, false discovery rate, and diagnostic odds ratio, makes the package a comprehensive tool for model evaluation. These metrics are crucial for assessing the efficacy of the logistic model, especially in classification tasks.
+
+The application of the p1 package to real-world data, as demonstrated with the expenses dataset, underscores its practical utility. The analysis provided clear insights into the relationship between predictors (like BMI) and the response variable, demonstrating the package's capability in handling real-world data scenarios. The ability to visualize the performance metrics over various cutoff values further adds to the analytical power of the package.
+
+
